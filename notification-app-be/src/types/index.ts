@@ -4,16 +4,12 @@ export type LogLevel = "info" | "warn" | "error" | "fatal" | "debug";
 export type LogStack = "backend" | "frontend";
 
 export interface Notification {
-  id: string;
-  studentId: string;
-  type: NotificationType;
-  message: string;
-  isRead: boolean;
-  createdAt: string;
+  ID: string;
+  Type: NotificationType;
+  Message: string;
+  Timestamp: string;
 }
 
-export interface Click {
-  timestamp: string;
-  source: string;
-  location: string;
+export interface APIResponse {
+  notifications: Notification[];
 }

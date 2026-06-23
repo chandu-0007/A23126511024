@@ -1,14 +1,28 @@
-import Express from "express"
+// src/server.ts
+import express from "express";
+import type  { Request, Response, NextFunction } from "express"; 
+import cors from "cors";
 import { requestLogger, Log } from "./middleware/logger.js";
-const app  = Express() ; 
+import notificationRoutes from "./route/router.js";
 
-app.use(Express.json()); 
-const port = 3003 ; 
+const app = express();
+const PORT = 4000;
 
-app.use(requestLogger); 
-app.get("/health-check" ,async  (req , res )=>{
-     res.send("the server is ruuning health status is true ")
-})
-app.listen(port , ()=>{
-      console.log(`app is runnig on the ${port}`)
-})
+app.use(cors());
+app.use(express.json());
+app.use(requestLogger);
+
+app.use("/", notificationRoutes);
+
+app.get("/health", (_req: Request, res: Response) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  Log("backend", "fatal", "handler", `Unhandled error: ${err.message}`);
+  res.status(500).json({ error: "Internal server error" });
+});
+
+app.listen(PORT, async () => {
+  await Log("backend", "info", "server", `Server started on port ${PORT}`);
+});

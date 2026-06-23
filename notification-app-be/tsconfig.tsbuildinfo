@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/middleware/logger.ts","./src/route/router.ts","./src/types/index.ts"],"version":"6.0.3"}
+{"root":["./src/index.ts","./src/controllers/notification.ts","./src/middleware/logger.ts","./src/route/router.ts","./src/types/index.ts","./src/utills/pq.ts"],"errors":true,"version":"6.0.3"}
