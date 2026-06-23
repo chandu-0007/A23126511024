@@ -5,7 +5,7 @@ import { requestLogger, Log } from "./middleware/logger.js";
 import notificationRoutes from "./route/router.js";
 const app = express();
 const PORT = 4000;
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(requestLogger);
 app.use("/", notificationRoutes);
@@ -17,6 +17,6 @@ app.use((err, _req, res, _next) => {
     res.status(500).json({ error: "Internal server error" });
 });
 app.listen(PORT, async () => {
-    await Log("backend", "info", "server", `Server started on port ${PORT}`);
+    console.log("server is running on port " + PORT);
 });
 //# sourceMappingURL=index.js.map

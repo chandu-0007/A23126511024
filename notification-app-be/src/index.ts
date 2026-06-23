@@ -8,7 +8,9 @@ import notificationRoutes from "./route/router.js";
 const app = express();
 const PORT = 4000;
 
-app.use(cors());
+
+app.use(cors({ origin: "http://localhost:3000" }));
+
 app.use(express.json());
 app.use(requestLogger);
 
@@ -24,5 +26,5 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 app.listen(PORT, async () => {
-  await Log("backend", "info", "server", `Server started on port ${PORT}`);
+  console.log("server is running on port " + PORT)
 });
